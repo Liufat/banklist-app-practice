@@ -65,7 +65,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -129,21 +129,48 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 ///////////////////////////////////////////////////////////////////////
 
-const displayMovements = function (movements) {
-  containerMovements.innerHTML = '';
+// const displayMovements = function (movements) {
+//   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
-    const type = mov > 0 ? 'deposit' : 'withdrawal';
-    const html = `
-    <div class="movements__row">
-          <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
-          <div class="movements__value">${mov}</div>
-        </div>
-    `;
-    containerMovements.insertAdjacentHTML('afterbegin', html);
-  });
-};
+//   movements.forEach(function (mov, i) {
+//     const type = mov > 0 ? 'deposit' : 'withdrawal';
+//     const html = `
+//     <div class="movements__row">
+//           <div class="movements__type movements__type--${type}">${
+//       i + 1
+//     } ${type}</div>
+//           <div class="movements__value">${mov}</div>
+//         </div>
+//     `;
+//     containerMovements.insertAdjacentHTML('afterbegin', html);
+//   });
+// };
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
+
+///////////coding test//////////////////
+
+// data 1 : Julia : [3,5,2,12,7] Kate : [4,1,15,8,3]
+// data 2 : Julia : [9,16,6,8,3] Kate : [10,5,6,1,4]
+
+// const checkDogs = function (dogJulia, dogKate) {
+//   const newDogJulia = dogJulia.slice(1, -1);
+//   // console.log(newDogJulia);
+//   const allDog = [...newDogJulia, ...dogKate];
+//   // console.log(allDog);
+//   allDog.forEach((v, i) => {
+//     const text =
+//       v >= 3 ? `an adult, and is ${v} years old.` : `still a puppy 🐶.`;
+//     console.log(`Dog number ${i + 1} is ${text}`);
+//   });
+// };
+
+// checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+// checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+/////////////////////////////map method/////////////////////////
+// const eurToUsd = 1.1;
+
+// const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+// console.log(movementsUSD);
