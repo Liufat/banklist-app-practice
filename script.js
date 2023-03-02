@@ -146,9 +146,9 @@ const displayMovements = function (movements) {
   });
 };
 
-const calcPrintBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} €`;
+const calcPrintBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance} €`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -239,6 +239,16 @@ createUsername(accounts);
 // });
 // console.log(balance);
 
+// 更新畫面
+const updateUI = function (currentAccount) {
+  // display movements
+  displayMovements(currentAccount.movements);
+  // display balance
+  calcPrintBalance(currentAccount);
+  // display summary
+  calcDisplaySummary(currentAccount);
+};
+
 ///////////////////////log in//////////////////////////
 let currentAccount;
 
@@ -259,12 +269,36 @@ btnLogin.addEventListener('click', function (e) {
     // clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
+  }
+  updateUI(currentAccount);
+});
 
-    // display movements
-    displayMovements(currentAccount.movements);
-    // display balance
-    calcPrintBalance(currentAccount.movements);
-    // display summary
-    calcDisplaySummary(currentAccount);
+//////////////////////////transfer///////////////////////
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+
+  const amount = Number(inputTransferAmount.value);
+  // console.log(amount, receiverAcc);
+
+  ////////TODO:檢查戶頭餘額是否
+  // 1.不等於0大於轉帳金額
+  // 2.對方帳戶存在
+  // 3.餘額大於轉帳金額
+  // 4.對方帳戶不等於自己的帳戶
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc.username !== currentAccount.username
+  ) {
+    // 執行轉帳
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    updateUI(currentAccount);
+    inputTransferAmount.value = inputTransferTo.value = '';
   }
 });
