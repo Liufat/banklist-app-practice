@@ -302,3 +302,23 @@ btnTransfer.addEventListener('click', function (e) {
     inputTransferAmount.value = inputTransferTo.value = '';
   }
 });
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log('Delete');
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    // console.log('Check');
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    console.log(index);
+    accounts.splice(index, 1);
+    inputCloseUsername.value = inputClosePin.value = '';
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = 'Log in to get started';
+  }
+});
