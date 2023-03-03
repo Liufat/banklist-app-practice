@@ -129,10 +129,12 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 ///////////////////////////////////////////////////////////////////////
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
+  ///////////////設置預設排序//////////////
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-  movements.forEach(function (mov, i) {
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <div class="movements__row">
@@ -335,4 +337,13 @@ btnClose.addEventListener('click', function (e) {
     containerApp.style.opacity = 0;
     labelWelcome.textContent = 'Log in to get started';
   }
+});
+
+///////////////切換排序功能////////////////////////
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log('sort');
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
